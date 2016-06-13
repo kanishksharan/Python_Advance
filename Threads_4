@@ -1,0 +1,39 @@
+# The use of join 
+# Here is the problem statement, without join()
+
+import threading,time
+
+def caller():
+    global x
+
+    print ("I may start a new Thread# 1 \n")
+    while(x < 300):
+            x += 1
+    print (x)
+
+def second_caller():
+    global x
+    
+    print ("I may start a new Thread# 2 \n")
+    while(x < 600):
+            x += 1
+    print (x)
+
+def createThread():
+    global x
+    x = 0
+
+    t = threading.Thread(target=caller, name = "TD1")
+    t.start() # Thread will start multiple times
+
+    t2 = threading.Thread(target=second_caller, name = "TD2")
+    t2.start() # Thread will start multiple times
+
+'''
+    print (threading.active_count())
+    print ("The list of currently running threads are: %s"%(threading.enumerate()))
+    print ("The current running thread: %s"%(threading.current_thread()))
+    print ("Is the thread alive? %s"%(t.is_alive()))
+
+'''
+createThread()
