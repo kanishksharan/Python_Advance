@@ -1,0 +1,19 @@
+# creating a new thread object
+# t = threading.Thread()
+# Starting a thread
+
+import threading
+
+def caller():
+    print ("I may start a new Thread\n")
+
+
+def createThread():
+
+    t = threading.Thread(target=caller())
+    t.start() # Thread will start once
+
+    print (threading.active_count())
+    print ("The list of currently running threads are: %s"%(threading.enumerate()))
+    print ("The current running thread: %s"%(threading.current_thread()))
+createThread()
