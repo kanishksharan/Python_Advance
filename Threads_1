@@ -1,0 +1,23 @@
+# Counting the number of active threads
+# threading.active_count()
+
+import threading
+
+def caller():
+    print ("Just run once \n")
+    print (threading.active_count())
+
+caller()
+
+
+# Listing all active threads
+# threading.enumerate()
+# threading.current_thread()
+import threading
+
+def caller():
+    print ("The list of currently running threads are: %s"%(threading.enumerate()))
+    print ("The current running thread: %s"%(threading.current_thread()))
+caller()
+
+#o/p [<_MainThread(MainThread, started 140735257182208)>]
