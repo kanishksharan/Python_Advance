@@ -1,3 +1,6 @@
+# Checking whether the thread is alive or not
+# Naming your thread in the terminal
+
 import threading
 
 def caller(i):
@@ -9,11 +12,12 @@ def caller(i):
 def createThread():
     for i in range(0,5):
 
-        t = threading.Thread(target=caller(i),args=(i,))
+        t = threading.Thread(target=caller,args=(i,), name = "T1") # Here i am naming my thread
         t.start() # Thread will start multiple times
     print (threading.active_count())
     print ("The list of currently running threads are: %s"%(threading.enumerate()))
     print ("The current running thread: %s"%(threading.current_thread()))
+    print ("Is the thread alive? %s"%(t.is_alive()))
 
 
 
