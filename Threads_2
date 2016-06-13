@@ -10,7 +10,7 @@ def caller():
 
 def createThread():
 
-    t = threading.Thread(target=caller())
+    t = threading.Thread(target=caller)
     t.start() # Thread will start once
 
     print (threading.active_count())
