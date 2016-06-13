@@ -1,23 +1,20 @@
 import threading
 
-def caller():
-    global dead
-    print ("I may start a new Thread\n")
-    while dead == False:
-        dead = True
+def caller(i):
+
+    print ("I may start a new Thread %s\n"%i)
+
+
 
 def createThread():
-    global dead
-    dead = False
-    t = threading.Thread(target=caller())
-    t.start() # Thread will start once
+    for i in range(0,5):
 
+        t = threading.Thread(target=caller(i),args=(i,))
+        t.start() # Thread will start multiple times
     print (threading.active_count())
     print ("The list of currently running threads are: %s"%(threading.enumerate()))
     print ("The current running thread: %s"%(threading.current_thread()))
 
-    input("Hit enter to kill the running thread") # This will kill the running thread
-    dead = True
 
 
 createThread()
