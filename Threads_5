@@ -2,6 +2,7 @@
 # A thread ID# stays even after the thread has died or finished its execution.
 # When the threads are joined together using join() the threads have the same Thred ID
 # But the the threads are not joined together then each thread will have its unique thread id.
+# t.ident
 
 import threading,time
 
