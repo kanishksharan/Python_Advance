@@ -1,0 +1,36 @@
+# Thread identification number
+# A thread ID# stays even after the thread has died or finished its execution.
+# When the threads are joined together using join() the threads have the same Thred ID
+# But the the threads are not joined together then each thread will have its unique thread id.
+
+import threading,time
+
+def caller():
+
+	global x
+	x = 0
+	
+	while(x < 300):
+		x += 1
+	print (x, "\n")
+
+def second_caller():
+
+	global x
+	
+	while(x < 600):
+		x += 1
+	print (x,"\n")
+
+def createThread():
+	global x
+	x = 0
+	t = threading.Thread(target=caller, name = "TD1")
+	t.start() # Thread will start multiple times
+	print(t.ident)
+
+	t2 = threading.Thread(target=second_caller, name = "TD2")
+	t2.start() # Thread will start multiple times
+	print(t2.ident)
+	
+createThread()
