@@ -1,5 +1,6 @@
 # The use of join 
 # Here is the problem statement, without join()
+# Join() waits for the current running thread to execute and then only begins the next thread
 
 import threading,time
 
@@ -25,6 +26,7 @@ def createThread():
 
     t = threading.Thread(target=caller, name = "TD1")
     t.start() # Thread will start multiple times
+    t.join() # So now thread "t" will always begin first and end before thread"T2" can begin.
 
     t2 = threading.Thread(target=second_caller, name = "TD2")
     t2.start() # Thread will start multiple times
