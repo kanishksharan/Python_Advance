@@ -1,0 +1,84 @@
+# Lock()
+# It doesn't allow one thread to share resource unless the other has finished dealing with one shared resource.
+# Untill the lock is relesed the seconf function() in the program will not be able to do anything.
+# lock.release() is a must, else the thread goeson infinitely
+# lock = threading.Lock()
+
+#-----------------------------This code will go on forever because I have commented the "finally" block-----------------------
+	global x, lock	
+
+	lock.acquire()
+	try:
+		while(x < 300):
+			x += 1
+		print (x)
+	finally:
+		#lock.release() # Commented the relase()....indefinite
+		pass
+		
+def second_caller():
+
+	global x, lock	
+
+	lock.acquire()
+	try:
+		while(x < 600):
+			x += 1
+		print (x)
+	finally:
+		lock.release()
+
+def createThread():
+
+	global x, lock
+
+	lock = threading.Lock()
+	x = 0
+
+	t = threading.Thread(target=caller, name = "TD1")
+	t.start() # Thread will start multiple times
+	
+
+	t2 = threading.Thread(target=second_caller, name = "TD2")
+	t2.start() # Thread will start multiple times
+	
+createThread()
+
+#---------------------------------------------------Corrected Version---------------------------------------------
+	global x, lock	
+
+	lock.acquire()
+	try:
+		while(x < 300):
+			x += 1
+		print (x)
+	finally:
+		lock.release()
+		
+def second_caller():
+
+	global x, lock	
+
+	lock.acquire()
+	try:
+		while(x < 600):
+			x += 1
+		print (x)
+	finally:
+		lock.release()
+
+def createThread():
+
+	global x, lock
+
+	lock = threading.Lock()
+	x = 0
+
+	t = threading.Thread(target=caller, name = "TD1")
+	t.start() # Thread will start multiple times
+	
+
+	t2 = threading.Thread(target=second_caller, name = "TD2")
+	t2.start() # Thread will start multiple times
+	
+createThread()
