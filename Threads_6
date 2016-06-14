@@ -1,0 +1,82 @@
+# Daemon value: it's a boolean value, indicating whether this thread is a daemon thred or not.
+# A deamon value must be set before a start is called on the thread
+# Daemon's initial value is inherited from the thread from where its created in
+# The main thread is not a daemon
+# All the threads created inside the main() is deafulted with deamon = False
+# All the threads created inside a deamon thread will deafult newly created daemon thread within it as True
+# A python program will close when no alive daemon thread is left
+# However you can set a non daemon thread to True by using "t.setDaemon(True)"
+# t.setDaemon(True) should also be done before you actually start a thread.
+
+#-----------------------------------With main()--------------------------------------------------
+import threading,time
+
+def caller():
+
+	global x
+	x = 0
+	
+	while(x < 300):
+		x += 1
+	print (x, "\n")
+
+def second_caller():
+
+	global x
+	
+	while(x < 600):
+		x += 1
+	print (x,"\n")
+
+def createThread():
+	global x
+	x = 0
+	t = threading.Thread(target=caller, name = "TD1")
+	print(t.isDaemon()) # Checking whether the thred is Daemon or not
+	t.start() # Thread will start multiple times
+	print(t.ident)
+
+	t2 = threading.Thread(target=second_caller, name = "TD2")
+	print(t2.isDaemon()) # Checking whether the thred is Daemon or not
+	t2.start() # Thread will start multiple times
+	print(t2.ident)
+	
+createThread()
+#-------------------------------------------Set Daemon to true------------------------------------------------------------------
+import threading,time
+
+def caller():
+
+	global x
+	x = 0
+	
+	while(x < 300):
+		x += 1
+	print (x, "\n")
+
+def second_caller():
+
+	global x
+	
+	while(x < 600):
+		x += 1
+	print (x,"\n")
+
+def createThread():
+	global x
+	x = 0
+	t = threading.Thread(target=caller, name = "TD1")
+	print(t.isDaemon()) # Checking whether the thred is Daemon or not
+	t.setDaemon(True) # Setting the non true value to True explicitly
+	t.start() # Thread will start multiple times
+	print(t.ident, "\n")
+	print(t.isDaemon(),"\n") # Checking whether the thred is Daemon or not
+
+	t2 = threading.Thread(target=second_caller, name = "TD2")
+	print(t2.isDaemon(),"\n") # Checking whether the thred is Daemon or not
+	t2.setDaemon(True)
+	t2.start() # Thread will start multiple times
+	print(t2.ident, "\n")
+	print(t2.isDaemon(),"\n") # Checking whether the thred is Daemon or not
+
+createThread()
